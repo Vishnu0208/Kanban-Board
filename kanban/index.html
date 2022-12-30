@@ -1,0 +1,185 @@
+<html>
+    <head>
+        <title>Board</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <div class="mt-4">
+                <input type="text" name="text" id="text"/>
+                <input type="button" name="tbutton" id="tbutton" value="add" onClick="add()"/>
+            </div>
+
+                <div class="row mt-5">
+                    <div>
+                        <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>status</th>
+                                <th>Move</th>
+                            </tr>
+                        </thead>
+                        <tbody id="get"></tbody>
+                        </table>    
+                    </div>
+
+                    <div class="ml-5">
+                        <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>status</th>
+                                <th>Move</th>
+                            </tr>
+                        </thead>
+                        <tbody id="get1"></tbody>  
+                        </table>
+                    </div>
+
+                    <div class="ml-5">
+                        <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="get2"></tbody>  
+                        </table>
+                    </div>
+
+                </div>    
+        </div>
+                <script>
+                    var details = [];
+                    var details1= [];
+                    var details2= [];
+
+                    function add()
+                    {
+                        var name=document.getElementById('text').value;
+                        var size=details.length;
+                        var size1=details1.length;
+                        var size2=details2.length;
+
+                        if(name === '' || name === null)
+                        {
+                            alert("Enter The Value")
+                        }
+                        else if(size >= 5)
+                        {
+
+                            if(size1 >=5)
+                            {
+                                details2.push(name);
+                                get_name2();
+
+                                if(size2 >= 5){
+                                    alert('Over Flow');
+                                    del2();
+                                }
+                            }
+                            else{
+                                details1.push(name);
+                                get_name1();
+                            }
+
+                        }
+                           
+                            else
+                            {
+                                details.push(name);
+                                get_name();
+                            }
+                            
+                            
+                        
+
+                    }   
+
+
+                    function get_name()
+                    {
+                        var x = '';
+                        var y=0;
+
+                        details.forEach(function(value,index){
+                            y=y+1;
+                            x += '<tr>';
+                            x += '<td>'+y+'</td>';
+                            x += '<td>'+value+'</td>';
+                            x += '<td><a onClick="del('+index+')">DELETE</a></td>';
+                            x += '<td><a onClick="move('+index+')">MOVE</a></td>';
+                            x += '</tr>';
+                        });
+                        document.getElementById('get').innerHTML=x;
+
+                    }
+
+                    function move(No){
+                        details1.push(details[No]);       
+                        get_name1();
+                        del(No);
+                    }
+
+                    function del(No){
+                        details.splice(No,1);
+                        get_name();
+                    }
+
+
+                    function get_name1()
+                    {
+                        var a='';
+                        var b=0;
+                        details1.forEach(function(value,index){
+                            b=b+1;
+                            a += '<tr>';
+                            a += '<td>'+b+'</td>';
+                            a += '<td>'+value+'</td>';
+                            a += '<td><a onClick="del1('+index+')">DELETE</a></td>';
+                            a += '<td><a onClick="move1('+index+')">MOVE</a></td>';
+                            a += '</tr>';
+                        });
+                        document.getElementById('get1').innerHTML=a;
+                    }
+
+                    function move1(No){
+                        details2.push(details1[No]);
+                        get_name2();
+                        del1(No);
+                    }
+                    
+                    function del1(No){  
+                        details1.splice(No,1);
+                        get_name1();
+                    }
+
+                    function get_name2()
+                    {
+                        var m='';
+                        var n=0;
+                        details2.forEach(function(value,index){
+                            n=n+1;
+                            m +='<tr>';
+                            m +='<td>'+n+'</td>';
+                            m +='<td>'+value+'</td>';
+                            m +='<td><a onClick="del2('+index+')">DELETE</a></td>';
+                            m +='</tr>';
+                        });
+                        document.getElementById("get2").innerHTML=m;
+                    }
+                    
+                    function del2(No){  
+                        details2.splice(No,1);
+                        get_name2();
+                    }
+
+
+        </script>
+    </body>
+</html>
